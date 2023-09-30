@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.alexbernat.albumsfinder.databinding.ActivityMainBinding
+import com.alexbernat.albumsfinder.domain.model.Album
 import com.alexbernat.albumsfinder.presentation.AlbumsAdapter
 import com.alexbernat.albumsfinder.presentation.ImageLoader
 import com.alexbernat.albumsfinder.presentation.MainViewModel
@@ -57,33 +58,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderState(uiState: UiState) {
         when (uiState) {
-            is UiState.Loading -> {
-                with(binding) {
-                    labelTextView.visibility = View.GONE
-                    albumsRecyclerView.visibility = View.GONE
-                    progressBar.visibility = View.VISIBLE
-                }
-            }
-
-            is UiState.Error -> {
-                with(binding) {
-                    progressBar.visibility = View.GONE
-                    albumsRecyclerView.visibility = View.GONE
-                    labelTextView.text = getString(uiState.data.msgRes)
-                    labelTextView.visibility = View.VISIBLE
-                }
-            }
-
-            is UiState.SearchResult -> {
-                albumsAdapter.submitList(uiState.albums) {
-                    with(binding) {
-                        progressBar.visibility = View.GONE
-                        labelTextView.visibility = View.GONE
-                        albumsRecyclerView.visibility = View.VISIBLE
-                    }
-                }
-            }
-
+            is UiState.Loading -> binding.showLoading()
+            is UiState.Error -> binding.showError(getString(uiState.data.msgRes))
+            is UiState.SearchResult -> binding.showResult(uiState.albums)
             else -> {}
         }
     }
@@ -91,5 +68,36 @@ class MainActivity : AppCompatActivity() {
     private fun search() {
         val query = binding.searchInputEditText.text?.toString() ?: ""
         viewModel.search(query)
+    }
+
+    private fun ActivityMainBinding.showError(msg: String) {
+        progressBar.visibility = View.GONE
+        albumsRecyclerView.visibility = View.GONE
+        labelTextView.text = msg
+        labelTextView.visibility = View.VISIBLE
+    }
+
+    private fun ActivityMainBinding.showLoading() {
+        labelTextView.visibility = View.GONE
+        albumsRecyclerView.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun ActivityMainBinding.showResult(albums: List<Album>) {
+        albumsAdapter.submitList(albums) {
+            progressBar.visibility = View.GONE
+            if (albums.isEmpty()) {
+                showEmptyResultMsg()
+            } else {
+                labelTextView.visibility = View.GONE
+                albumsRecyclerView.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun ActivityMainBinding.showEmptyResultMsg() {
+        labelTextView.text = getString(R.string.empty_search_result)
+        labelTextView.visibility = View.VISIBLE
+        albumsRecyclerView.visibility = View.GONE
     }
 }

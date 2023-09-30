@@ -1,6 +1,8 @@
 package com.alexbernat.albumsfinder.domain.model
 
-sealed class UseCaseOutput<T>(open val data: T?, open val error: DomainError?) {
-    data class Success<T>(override val data: T) : UseCaseOutput<T>(data, null)
-    data class Error<T>(override val error: DomainError) : UseCaseOutput<T>(null, error)
+import com.alexbernat.albumsfinder.domain.model.exceptions.DomainException
+
+sealed class UseCaseOutput<out T> {
+    data class Success<T>(val value: T) : UseCaseOutput<T>()
+    data class Error(val exception: DomainException) : UseCaseOutput<Nothing>()
 }

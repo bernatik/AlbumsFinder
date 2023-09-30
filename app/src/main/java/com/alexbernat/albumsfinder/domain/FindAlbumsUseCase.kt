@@ -1,10 +1,8 @@
 package com.alexbernat.albumsfinder.domain
 
 import com.alexbernat.albumsfinder.domain.model.Album
-import com.alexbernat.albumsfinder.domain.model.DomainError
-import com.alexbernat.albumsfinder.domain.model.EmptyResponseException
 import com.alexbernat.albumsfinder.domain.model.UseCaseOutput
-import com.alexbernat.albumsfinder.domain.model.toDomainError
+import com.alexbernat.albumsfinder.domain.model.exceptions.DomainException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,17 +15,11 @@ class FindAlbumsUseCase(
     suspend fun execute(query: String): UseCaseOutput<List<Album>> = withContext(dispatcher) {
         return@withContext try {
             val result = albumsRepository.fetchAlbums(query)
-            if (result.isEmpty()) {
-                UseCaseOutput.Error<List<Album>>(
-                    error = DomainError.EmptyResultError(
-                        EmptyResponseException()
-                    )
-                )
-            } else {
-                UseCaseOutput.Success(data = result)
-            }
+            UseCaseOutput.Success(value = result)
         } catch (e: Exception) {
-            UseCaseOutput.Error(error = e.toDomainError())
+            UseCaseOutput.Error(
+                exception = (e as? DomainException) ?: DomainException.Unknown(e)
+            )
         }
     }
 }

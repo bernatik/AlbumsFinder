@@ -4,10 +4,10 @@
     <string name="btn_search">Search</string>
     <string name="search_hint">Artist\'s name</string>
     <string name="label_main">Enter artist name to get a list of albums</string>
+    <string name="empty_search_result">Nothing found</string>
 
     <!-- Errors -->
     <string name="err_network">Network issue, check your connection and try again later</string>
     <string name="err_unknown">Something went wrong</string>
     <string name="err_query">Check your search query</string>
-    <string name="err_empty">Nothing found</string>
 </resources>
