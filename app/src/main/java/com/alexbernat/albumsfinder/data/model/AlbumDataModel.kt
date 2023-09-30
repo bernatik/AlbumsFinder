@@ -12,29 +12,29 @@ data class AlbumDataModel(
     @SerialName("collectionName")
     val collectionName: String,
     @SerialName("artworkUrl100")
-    val artworkUrl100: String?,
+    val artworkUrl100: String? = null,
     @SerialName("collectionCensoredName")
-    val collectionCensoredName: String?,
+    val collectionCensoredName: String? = null,
     @SerialName("collectionExplicitness")
-    val collectionExplicitness: String?,
+    val collectionExplicitness: String? = null,
     @SerialName("collectionPrice")
-    val collectionPrice: Double?,
+    val collectionPrice: Double? = null,
     @SerialName("collectionType")
-    val collectionType: String?,
+    val collectionType: String? = null,
     @SerialName("collectionViewUrl")
-    val collectionViewUrl: String?,
+    val collectionViewUrl: String? = null,
     @SerialName("copyright")
-    val copyright: String?,
+    val copyright: String? = null,
     @SerialName("country")
-    val country: String?,
+    val country: String? = null,
     @SerialName("currency")
-    val currency: String?,
+    val currency: String? = null,
     @SerialName("primaryGenreName")
-    val primaryGenreName: String?,
+    val primaryGenreName: String? = null,
     @SerialName("releaseDate")
-    val releaseDate: String?,
+    val releaseDate: String? = null,
     @SerialName("trackCount")
-    val trackCount: Int?,
+    val trackCount: Int? = null,
     @SerialName("wrapperType")
-    val wrapperType: String?
+    val wrapperType: String? = null
 )
