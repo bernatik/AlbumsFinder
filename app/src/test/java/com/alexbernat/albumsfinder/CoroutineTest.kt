@@ -1,4 +1,4 @@
-package com.alexbernat.albumsfinder.domain
+package com.alexbernat.albumsfinder
 
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
