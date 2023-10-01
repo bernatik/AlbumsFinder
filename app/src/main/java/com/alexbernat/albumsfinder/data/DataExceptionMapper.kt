@@ -1,4 +1,4 @@
-package com.alexbernat.albumsfinder.data.model
+package com.alexbernat.albumsfinder.data
 
 import com.alexbernat.albumsfinder.domain.model.exceptions.DomainException
 import io.ktor.client.plugins.ClientRequestException

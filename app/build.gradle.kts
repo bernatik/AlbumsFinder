@@ -52,6 +52,11 @@ dependencies {
     val glideVersion = "4.16.0"
     val lifecycleVersion = "2.6.2"
 
+    val junitVersion = "4.13.2"
+    val mockitoKotlinVersion = "4.1.0"
+    val coroutinesVersion = "1.7.3"
+    val assertionsVersion = "1.1.5"
+
     implementation("androidx.core:core-ktx:$androidXCore")
     implementation("androidx.appcompat:appcompat:$androidXAppCompat")
     implementation("com.google.android.material:material:$googleMaterial")
@@ -69,7 +74,8 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:$glideVersion")
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("junit:junit:$junitVersion")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
+    testImplementation("com.google.truth:truth:$assertionsVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
 }
