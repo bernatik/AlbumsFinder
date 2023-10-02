@@ -41,7 +41,7 @@ class ITunesAlbumsRepositoryTest : CoroutineTest() {
     }
 
     @Test
-    fun `verify domain exception thrown in case of failed request`() = runWithDispatcher {
+    fun `verify bad api request throws domain exception`() = runWithDispatcher {
         val mockEngine = buildMockEngine(HttpStatusCode.BadRequest)
         val repository = ITunesAlbumsRepository(ITunesAlbumsAPI(mockEngine))
         try {
